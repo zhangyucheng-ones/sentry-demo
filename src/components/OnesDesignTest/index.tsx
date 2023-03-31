@@ -1,6 +1,6 @@
 
 import React, { useCallback, useState } from 'react';
-import { Button } from '@ones-design/core';
+// import { Button } from '@ones-design/core';
 
 const OnesDesignTest: React.FunctionComponent<{}> = function (props) {
 	const [loading, setLoading] = useState(false)
@@ -12,8 +12,8 @@ const OnesDesignTest: React.FunctionComponent<{}> = function (props) {
 	}, [])
 	return (
 		<div style={{fontFamily: 'PingFang SC,"微软雅黑",Arial'}}>
-			<Button loading={loading} onClick={handleClick}>123</Button>
-			<Button type="primary" disabled={false} loading={loading} onClick={handleClick}>123</Button>
+			<button onClick={handleClick}>123</button>
+			<button disabled={false} onClick={handleClick}>123</button>
 		</div>
 	)
 }

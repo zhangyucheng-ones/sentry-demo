@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
-    "@ones-design/core": "2.10.3",
-    "@ones-design/icons": "2.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@reduxjs/toolkit": "^1.7.1",
     "@sentry/integrations": "7.30.0",

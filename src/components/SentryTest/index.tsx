@@ -1,6 +1,6 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button } from '@ones-design/core';
+// import { Button } from '@ones-design/core';
 import * as Sentry from "@sentry/react";
 import { SpanStatus, SpanStatusType } from '@sentry/tracing';
 
@@ -83,9 +83,9 @@ const SentryTest: React.FunctionComponent<{}> = function (props) {
 
 	return (
 		<div style={{fontFamily: 'PingFang SC,"微软雅黑",Arial'}}>
-			<Button loading={loading} onClick={handleClick}>Sent Request</Button>
-            <Button onClick={handleSentToSentry}>Sent To Sentry</Button>
-            <Button onClick={throwError}>throw Error</Button>
+			<button onClick={handleClick}>Sent Request</button>
+            <button onClick={handleSentToSentry}>Sent To Sentry</button>
+            <button onClick={throwError}>throw Error</button>
 		</div>
 	)
 }
