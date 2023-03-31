@@ -1,0 +1,43 @@
+name: sentryRelease
+on:
+  push:
+    branches:
+      - main
+jobs:
+  sentryRelease:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Release
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_RELEASE_VERSION: ${{ github.sha }}
+          SENTRY_LOG_LEVEL: debug
+        run: npx @sentry/cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE_VERSION
+
+      - name: Upload source maps
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_RELEASE_VERSION: ${{ github.sha }}
+          SENTRY_LOG_LEVEL: debug
+        run: npx @sentry/cli releases files $SENTRY_RELEASE_VERSION upload-sourcemaps ./build/static/js --url-prefix '~/static/js' --validate
+
+      - name: Finalize release
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_RELEASE_VERSION: ${{ github.sha }}
+        run: npx @sentry/cli releases finalize $SENTRY_RELEASE_VERSION
